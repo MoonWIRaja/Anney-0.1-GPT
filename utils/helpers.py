@@ -27,9 +27,27 @@ def count_tokens_in_file(path: str) -> int:
 
 
 def get_device() -> torch.device:
-    """Pulangkan peranti terbaik yang tersedia."""
+    """Pulangkan peranti terbaik yang tersedia, dengan pengesanan AMD/NVIDIA/MPS."""
+    
+    # Periksa Apple Silicon (Mac M1/M2/M3)
+    if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+        print("[Sistem] Apple Metal GPU (MPS) dikesan. Menggunakan GPU.")
+        return torch.device("mps")
+        
+    # Periksa CUDA (Boleh jadi NVIDIA atau AMD jika guna PyTorch ROCm)
     if torch.cuda.is_available():
+        device_name = torch.cuda.get_device_name(0)
+        is_amd = "AMD" in device_name or "Radeon" in device_name or "MI" in device_name or "gfx" in device_name
+        
+        if is_amd:
+            print(f"[Sistem] AMD GPU dikesan: {device_name}. Menggunakan pemecutan ROCm/CUDA.")
+        else:
+            print(f"[Sistem] NVIDIA GPU dikesan: {device_name}. Menggunakan pemecutan CUDA.")
+            
         return torch.device("cuda")
+        
+    # Jika tiada GPU atau library PyTorch GPU tidak dipasang
+    print("[Sistem] GPU Tidak Dikesan / Tiada PyTorch GPU dipasang. Menggunakan CPU.")
     return torch.device("cpu")
 
 

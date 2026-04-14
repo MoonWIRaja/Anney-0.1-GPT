@@ -28,7 +28,7 @@ Arahan A-Z ini adalah untuk anda yang baru sahaja *clone* atau muat turun repo i
 ### Langkah 1: Clone Repository
 Buka terminal dan clone repo ini ke komputer anda:
 ```bash
-git clone <masukkan_link_repo_anda_di_sini>
+git clone https://github.com/MoonWIRaja/Anney-0.1-GPT.git
 cd "Anney 0.1 GPT"
 ```
 
@@ -38,6 +38,11 @@ Semak versi anda:
 ```bash
 python3.12 --version
 ```
+kudian jalan kan
+```bash
+python3.12 -c "from utils.helpers import get_device; get_device()"
+```
+Untuk semak Proses yang akan di lakukan mengunakan Gpu atau Cpu Atau kedua ii
 
 ### Langkah 3: Pasang Keperluan Berkemungkinan (Dependencies)
 Pasang semua pakej pip (PyTorch dll.) yang diperlukan:
