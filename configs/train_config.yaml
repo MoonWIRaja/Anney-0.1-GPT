@@ -1,0 +1,43 @@
+# Anney 0.1 GPT - Training Configuration
+# Dikemaskini untuk model ~50M parameter
+
+# Data
+train_data: data/processed/train.pt
+val_data: data/processed/val.pt
+tokenizer_model: tokenizer/sp_model/anney.model
+val_split: 0.1
+
+# Pretraining (~50M model — perlukan batch kecil untuk CPU)
+pretrain:
+  max_epochs: 30
+  batch_size: 8
+  learning_rate: 2.0e-4
+  weight_decay: 0.01
+  grad_accum_steps: 8
+  log_every: 20
+  save_every: 5
+  patience: 10
+  min_delta: 0.001
+
+# Fine-tuning
+finetune:
+  max_epochs: 15
+  batch_size: 4
+  learning_rate: 5.0e-5
+  weight_decay: 0.01
+  grad_accum_steps: 4
+  log_every: 10
+  save_every: 3
+  patience: 6
+  min_delta: 0.001
+  sft_data: data_samples/combined_chat_data.jsonl
+
+# Tokenizer
+tokenizer:
+  vocab_size: 8000
+  character_coverage: 0.9995
+  model_type: bpe
+  pad_id: 0
+  unk_id: 1
+  bos_id: 2
+  eos_id: 3

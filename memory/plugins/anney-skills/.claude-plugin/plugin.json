@@ -1,0 +1,9 @@
+{
+  "name": "anney-skills",
+  "version": "1.0.0",
+  "description": "Operational memory and workflow skills for the Anney project",
+  "author": {
+    "name": "Moon",
+    "email": "moon@example.com"
+  }
+}
